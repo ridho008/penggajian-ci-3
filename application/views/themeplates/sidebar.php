@@ -18,22 +18,22 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item<?= $this->uri->segment(1) != 'admin/dashboard' ? ' active' : ''; ?>">
+    <li class="nav-item<?= $this->uri->segment(2) == 'dashboard' ? ' active' : ''; ?>">
       <a class="nav-link" href="<?= base_url('admin/dashboard'); ?>">
         <i class="fas fa-fw fa-tachometer-alt"></i>
         <span>Dashboard</span></a>
     </li>
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
+    <li class="nav-item<?= $this->uri->segment(2) == 'pegawai' || $this->uri->segment(2) == 'jabatan' ? ' active' : ''; ?>">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
         <i class="fas fa-fw fa-database"></i>
         <span>Master Data</span>
       </a>
-      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+      <div id="collapseTwo" class="collapse<?= $this->uri->segment(2) == 'pegawai' || $this->uri->segment(2) == 'jabatan' ? ' show' : ''; ?>" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
           <a class="collapse-item" href="<?= base_url('admin/pegawai'); ?>">Data Pegawai</a>
-          <a class="collapse-item" href="<?= base_url('admin/jabatan'); ?>">Data Jabatan</a>
+          <a class="collapse-item<?= $this->uri->segment(2) == 'jabatan' ? ' active' : ''; ?>" href="<?= base_url('admin/jabatan'); ?>">Data Jabatan</a>
         </div>
       </div>
     </li>
