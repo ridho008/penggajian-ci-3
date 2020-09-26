@@ -32,7 +32,7 @@
       </a>
       <div id="collapseTwo" class="collapse<?= $this->uri->segment(2) == 'pegawai' || $this->uri->segment(2) == 'jabatan' ? ' show' : ''; ?>" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-          <a class="collapse-item" href="<?= base_url('admin/pegawai'); ?>">Data Pegawai</a>
+          <a class="collapse-item<?= $this->uri->segment(2) == 'pegawai' ? ' active' : ''; ?>" href="<?= base_url('admin/pegawai'); ?>">Data Pegawai</a>
           <a class="collapse-item<?= $this->uri->segment(2) == 'jabatan' ? ' active' : ''; ?>" href="<?= base_url('admin/jabatan'); ?>">Data Jabatan</a>
         </div>
       </div>
