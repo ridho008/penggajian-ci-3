@@ -4,8 +4,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Dashboard extends CI_Controller {
 	public function index()
 	{
-		$pegawai = $this->db->get_where('pegawai', ['jabatan' => 'Staff It'])->num_rows();
-		$admin = $this->db->get_where('pegawai', ['jabatan' => 'Admin'])->num_rows();
+		$pegawai = $this->db->get_where('pegawai', ['id_jabatan' => '1'])->num_rows();
+		$admin = $this->db->get_where('pegawai', ['id_jabatan' => '2'])->num_rows();
 		$data = [
 			'pegawai' => $pegawai,
 			'admin' => $admin
