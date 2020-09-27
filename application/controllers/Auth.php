@@ -62,4 +62,45 @@ class Auth extends CI_Controller {
 		}
 	}
 
+	public function ganti_password()
+	{
+		$data['title'] = 'Ubah Password';
+		$this->form_validation->set_rules('password_lama', 'Password Lama', 'required|trim|min_length[5]');
+		$this->form_validation->set_rules('password1', 'Password Baru', 'required|trim|min_length[5]|matches[password2]');
+		$this->form_validation->set_rules('password2', 'Konfirmasi Password', 'required|trim|matches[password1]');
+		if($this->form_validation->run() == FALSE) {
+			$this->load->view('auth/ganti_password', $data);
+		} else {
+			$passwordLama = $this->input->post('password_lama', true);
+			$passwordBaru = $this->input->post('password1', true);
+			$konfirmasiPassword = $this->input->post('password2', true);
+
+			if(sha1($passwordLama) !== $data['user']['password']) {
+				$this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert"><i class="fas fa-info-danger"></i> Password Lama Salah!.</div>');
+				redirect('auth/ganti_password');
+			} else {
+				if($passwordLama == $passwordBaru) {
+					$this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert"><i class="fas fa-info-danger"></i> Password Lama Sama Dengan Yang Baru! Coba Password Lain.</div>');
+					redirect('auth/ganti_password');
+				} else {
+					$passwordHash = sha1($passwordBaru1);
+
+					$this->db->set('password', $passwordHash);
+					$this->db->where('username', $this->session->userdata('username'));
+					$this->db->update('user');
+
+					$this->session->set_flashdata('pesan', '<div class="alert alert-success"><i class="fa fa-bell" aria-hidden="true"></i> Password Berhasil Di Ganti.</div>');
+					redirect('auth/ganti_password');
+				}
+			}
+		}
+	}
+
+	public function profile()
+	{
+		$data['title'] = 'User Profile';
+		$data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+		$this->load->view('auth/profile', $data);
+	}
+
 }
