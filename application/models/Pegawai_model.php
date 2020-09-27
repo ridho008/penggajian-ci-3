@@ -16,7 +16,7 @@ class Pegawai_model extends CI_Model {
 		if($photo) {
 			$config['allowed_types'] = 'png|jpg';
 			$config['max_sizes'] = '2048';
-			$config['upload_path'] = './assets/img/pegawai/';
+			$config['upload_path'] = './assets/img/user/';
 
 			$this->load->library('upload', $config);
 
@@ -53,7 +53,7 @@ class Pegawai_model extends CI_Model {
 		if($photo) {
 			$config['allowed_types'] = 'png|jpg';
 			$config['max_sizes'] = '2048';
-			$config['upload_path'] = './assets/img/pegawai/';
+			$config['upload_path'] = './assets/img/user/';
 
 			$this->load->library('upload', $config);
 

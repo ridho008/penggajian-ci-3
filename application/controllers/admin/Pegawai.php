@@ -13,7 +13,7 @@ class Pegawai extends CI_Controller {
 		$data['title'] = 'Pegawai';
 		$data['pegawai'] = $this->Pegawai_model->getAllPegawai();
 		$data['jabatan'] = $this->db->get('jabatan')->result_array();
-
+		$data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 		$this->form_validation->set_rules('nik', 'NIK', 'required|trim|min_length[9]|is_unique[pegawai.nik]');
 		$this->form_validation->set_rules('nama_pegawai', 'Nama Pegawai', 'required|trim');
 		$this->form_validation->set_rules('jk', 'Jenis Kelamin', 'required|trim');
@@ -48,7 +48,7 @@ class Pegawai extends CI_Controller {
 	{
 		$result = $this->db->get_where('pegawai', ['id_pegawai' => $id])->row_array();
 		$rowPhoto = $result['photo'];
-		unlink('assets/img/pegawai/' . $rowPhoto);
+		unlink('assets/img/user/' . $rowPhoto);
 		$this->db->where('id_pegawai', $id);
 		$this->db->delete('pegawai');
 		$this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert"><i class="fas fa-info-circle"></i> Data Pegawai <strong>Berhasil Dihapus.</strong></div>');

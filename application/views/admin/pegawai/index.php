@@ -39,7 +39,7 @@
                   <tr>
                     <td><?= $no++; ?></td>
                     <td>
-                      <img src="<?= base_url('/assets/img/pegawai/') . $p['photo']; ?>" class="tampilFotoPegawai  ">
+                      <img src="<?= base_url('/assets/img/user/') . $p['photo']; ?>" class="tampilFotoPegawai  ">
                     </td>
                     <td><?= $p['nik']; ?></td>
                     <td><?= $p['nama_pegawai']; ?></td>

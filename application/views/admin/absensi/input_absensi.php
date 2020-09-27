@@ -46,8 +46,7 @@
                 ?>
               </select>
             </div>
-            <button type="submit" class="btn btn-primary mb-2 ml-auto"><i class="fas fa-eye"></i> Tampilkan Data</button>
-            <a href="<?= base_url('admin/absensi/input_absensi') ?>" class="btn btn-success mb-2 ml-2"><i class="fas fa-plus"></i> Input Kehadiran</a>
+            <button type="submit" class="btn btn-primary mb-2 ml-auto"><i class="fas fa-eye"></i> Generate Form</button>
           </form>
         </div>
       </div>
@@ -88,9 +87,16 @@
               <td><?= $a['nama_pegawai']; ?></td>
               <td><?= $a['jk_kehadiran'] == 'L' ? 'Pria' : 'Perempuan'; ?></td>
               <td><?= $a['nama_jabatan']; ?></td>
-              <td><?= $a['hadir']; ?></td>
-              <td><?= $a['sakit']; ?></td>
-              <td><?= $a['alpa']; ?></td>
+              <td>
+                <input type="text" name="id_absensi[]" class="form-control">
+                <input type="number" name="hadir[]" class="form-control">
+              </td>
+              <td>
+                <input type="number" name="sakit[]" class="form-control">
+              </td>
+              <td>
+                <input type="number" name="alpa[]" class="form-control">
+              </td>
             </tr>
           <?php endforeach; ?>
         </table>

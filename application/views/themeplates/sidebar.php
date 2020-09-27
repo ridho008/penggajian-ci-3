@@ -39,14 +39,14 @@
     </li>
 
     <!-- Nav Item - Utilities Collapse Menu -->
-    <li class="nav-item">
+    <li class="nav-item<?= $this->uri->segment(2) == 'absensi' || $this->uri->segment(2) == 'gagji' ? ' active' : ''; ?>">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
         <i class="fas fa-fw fa-money-check-alt"></i>
         <span>Transaksi</span>
       </a>
-      <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+      <div id="collapseUtilities" class="collapse<?= $this->uri->segment(2) == 'absensi' || $this->uri->segment(2) == 'gaji' ? ' show' : ''; ?>" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-          <a class="collapse-item" href="<?= base_url('admin/absensi'); ?>">Data Absensi</a>
+          <a class="collapse-item<?= $this->uri->segment(2) == 'absensi' ? ' active' : ''; ?>" href="<?= base_url('admin/absensi'); ?>">Data Absensi</a>
           <a class="collapse-item" href="<?= base_url('admin/gaji'); ?>">Data Gaji</a>
         </div>
       </div>
@@ -69,7 +69,7 @@
 
     <!-- Nav Item - Charts -->
     <li class="nav-item">
-      <a class="nav-link" href="charts.html">
+      <a class="nav-link" href="<?= base_url('auth/logout'); ?>">
         <i class="fas fa-fw fa-sign-out-alt"></i>
         <span>Logout</span></a>
     </li>
@@ -146,8 +146,8 @@
           <!-- Nav Item - User Information -->
           <li class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
-              <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+              <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $user['username']; ?></span>
+              <img class="img-profile rounded-circle" src="<?= base_url('/assets/img/user/') . $user['foto_user']; ?>">
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
