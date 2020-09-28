@@ -5,7 +5,7 @@ class Auth extends CI_Controller {
 	public function index()
 	{
 		$data['title'] = 'Login';
-		$this->cekLogin();
+		// $this->cekLogin();
 		$this->form_validation->set_rules('username', 'Username', 'required|trim');
 		$this->form_validation->set_rules('password', 'Password', 'required|trim');
 		if($this->form_validation->run() == FALSE) {

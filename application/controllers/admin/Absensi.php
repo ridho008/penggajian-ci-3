@@ -43,11 +43,36 @@ class Absensi extends CI_Controller {
 			$bulanTahun = $bulan.$tahun;
 		}
 
-		$data['absensi'] = $this->Absensi_model->joinPegawaiJabatan($bulanTahun);
+		$data['inputAbsensi'] = $this->Absensi_model->InputjoinPegawaiJabatan($bulanTahun);
+		$data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 		$this->load->view('themeplates/header', $data);
 		$this->load->view('themeplates/sidebar', $data);
 		$this->load->view('admin/absensi/input_absensi', $data);
 		$this->load->view('themeplates/footer');
+	}
+
+	public function aksi_input_kehadiran()
+	{
+		$post = $this->input->post();
+		// var_dump($post); die;
+		foreach($post['bulan'] as $key => $value) {
+			if($post['bulan'][$key] != null || $post['nik'][$key] != null) {
+				$data[] =
+					[
+						'bulan' => $post['bulan'][$key],
+						'nik' => $post['nik'][$key],
+						'id_pegawai' => $post['id_pegawai'][$key],
+						'jk_kehadiran' => $post['jk_pegawai'][$key],
+						'id_jabatan' => $post['id_jabatan'][$key],
+						'hadir' => $post['hadir'][$key],
+						'sakit' => $post['sakit'][$key],
+						'alpa' => $post['alpa'][$key]
+					];
+			}
+		}
+		$this->Absensi_model->tambah_batch($data);
+		$this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert"><i class="fas fa-info-circle"></i> Data Kehadiran <strong>Berhasil Ditambahkan.</strong></div>');
+		redirect('admin/absensi');
 	}
 
 

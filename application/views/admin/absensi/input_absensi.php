@@ -12,7 +12,7 @@
     <div class="col-md">
       <div class="card">
         <div class="card-header bg-primary text-white">
-          Filter Data Absensi Pegawai
+          Input Data Absensi Pegawai
         </div>
         <div class="card-body">
           <form class="form-inline" method="post" action="">
@@ -68,6 +68,7 @@
       <div class="alert alert-info mt-4" role="alert">Menampilkan Data Kehadiran Pegawai Bulan: <strong><?= $bulan; ?></strong> Tahun: <strong><?= $tahun; ?></strong></div>
 
       <!-- Table -->
+      <form action="<?= base_url('admin/absensi/aksi_input_kehadiran'); ?>" method="post">
       <div class="table-responsive">
         <table class="table table-bordered table-striped">
           <tr>
@@ -76,34 +77,44 @@
             <th>Nama Pegawai</th>
             <th>Kelamin</th>
             <th>Jabatan</th>
-            <th>Hadir</th>
-            <th>Sakit</th>
-            <th>Alpa</th>
+            <th width="8%">Hadir</th>
+            <th width="8%">Sakit</th>
+            <th width="8%">Alpa</th>
           </tr>
-          <?php $no = 1; foreach($absensi as $a) : ?>
+          <?php $no = 1; foreach($inputAbsensi as $a) : ?>
             <tr>
+              <input type="text" name="bulan[]" class="form-control" value="<?= $bulanTahun; ?>">
+              <input type="text" name="nik[]" class="form-control" value="<?= $a['nik']; ?>">
+              <input type="text" name="id_pegawai[]" class="form-control" value="<?= $a['id_pegawai']; ?>">
+              <input type="text" name="jk_pegawai[]" class="form-control" value="<?= $a['jk_pegawai']; ?>">
+              <input type="text" name="id_jabatan[]" class="form-control" value="<?= $a['id_jabatan']; ?>">
               <td><?= $no++; ?></td>
               <td><?= $a['nik']; ?></td>
               <td><?= $a['nama_pegawai']; ?></td>
-              <td><?= $a['jk_kehadiran'] == 'L' ? 'Pria' : 'Perempuan'; ?></td>
+              <td><?= $a['jk_pegawai'] == 'L' ? 'Pria' : 'Perempuan'; ?></td>
               <td><?= $a['nama_jabatan']; ?></td>
               <td>
-                <input type="text" name="id_absensi[]" class="form-control">
-                <input type="number" name="hadir[]" class="form-control">
+                <input type="number" name="hadir[]" class="form-control" value="0">
               </td>
               <td>
-                <input type="number" name="sakit[]" class="form-control">
+                <input type="number" name="sakit[]" class="form-control" value="0">
               </td>
               <td>
-                <input type="number" name="alpa[]" class="form-control">
+                <input type="number" name="alpa[]" class="form-control" value="0">
               </td>
             </tr>
           <?php endforeach; ?>
         </table>
-          <?php if(empty($absensi)) : ?>
+          <?php if(empty($inputAbsensi)) : ?>
             <div class="alert alert-danger text-center" role="alert">Data tidak ditemukan.</div>
           <?php endif; ?>
       </div>
+      <div class="row">
+        <div class="col-md-2 offset-md-10">
+          <button type="submit" class="btn btn-primary">Simpan</button>
+        </div>
+      </div>
+      </form>
     </div>
   </div>
 
