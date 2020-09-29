@@ -39,14 +39,15 @@
     </li>
 
     <!-- Nav Item - Utilities Collapse Menu -->
-    <li class="nav-item<?= $this->uri->segment(2) == 'absensi' || $this->uri->segment(2) == 'gagji' ? ' active' : ''; ?>">
+    <li class="nav-item<?= $this->uri->segment(2) == 'absensi' || $this->uri->segment(2) == 'gaji' || $this->uri->segment(2) == 'potongangaji' ? ' active' : ''; ?>">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
         <i class="fas fa-fw fa-money-check-alt"></i>
         <span>Transaksi</span>
       </a>
-      <div id="collapseUtilities" class="collapse<?= $this->uri->segment(2) == 'absensi' || $this->uri->segment(2) == 'gaji' ? ' show' : ''; ?>" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+      <div id="collapseUtilities" class="collapse<?= $this->uri->segment(2) == 'absensi' || $this->uri->segment(2) == 'gaji' || $this->uri->segment(2) == 'potongangaji' ? ' show' : ''; ?>" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
           <a class="collapse-item<?= $this->uri->segment(2) == 'absensi' ? ' active' : ''; ?>" href="<?= base_url('admin/absensi'); ?>">Data Absensi</a>
+          <a class="collapse-item<?= $this->uri->segment(2) == 'potongangaji' ? ' active' : ''; ?>" href="<?= base_url('admin/potongangaji'); ?>">Setting Potongan Gaji</a>
           <a class="collapse-item" href="<?= base_url('admin/gaji'); ?>">Data Gaji</a>
         </div>
       </div>
