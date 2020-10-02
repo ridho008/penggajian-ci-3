@@ -1,3 +1,15 @@
+<?php 
+if((isset($_POST['bulan']) && $_POST['bulan'] != null) && (isset($_POST['tahun']) && $_POST['tahun'] != null)) {
+  $bulan = $this->input->post('bulan');
+  $tahun = $this->input->post('tahun');
+  $bulanTahun = $bulan.$tahun;
+} else {
+  $bulan = date('m');
+  $tahun = date('Y');
+  $bulanTahun = $bulan.$tahun;
+}
+
+?>
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
@@ -47,23 +59,16 @@
               </select>
             </div>
             <button type="submit" class="btn btn-primary mb-2 ml-auto"><i class="fas fa-eye"></i> Tampilkan Data</button>
-            <a href="<?= base_url() ?>" class="btn btn-success mb-2 ml-2"><i class="fas fa-print"></i> Cetak Daftar Gaji</a>
+            <?php if(empty($gaji)) : ?>
+              <button type="button" class="btn btn-success mb-2 ml-2" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-print"></i> Cetak Daftar Gaji</button>
+            <?php else : ?>
+            <a href="<?= base_url('admin/gaji/cetak?bulan=') . $bulan . '&tahun=' . $tahun; ?>" class="btn btn-success mb-2 ml-2"><i class="fas fa-print"></i> Cetak Daftar Gaji</a>
+            <?php endif; ?>
           </form>
         </div>
       </div>
 
-      <?php 
-      if((isset($_POST['bulan']) && $_POST['bulan'] != null) && (isset($_POST['tahun']) && $_POST['tahun'] != null)) {
-        $bulan = $this->input->post('bulan');
-        $tahun = $this->input->post('tahun');
-        $bulanTahun = $bulan.$tahun;
-      } else {
-        $bulan = date('m');
-        $tahun = date('Y');
-        $bulanTahun = $bulan.$tahun;
-      }
-
-      ?>
+      
 
       <!-- Info Tanggal & Tahun -->
       <div class="alert alert-info mt-4" role="alert">Menampilkan Data Gaji Pegawai Bulan: <strong><?= $bulan; ?></strong> Tahun: <strong><?= $tahun; ?></strong></div>
@@ -118,7 +123,25 @@
 <!-- End of Main Content -->
 
 
-
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Informasi</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-warning" role=""><i class="fas fa-info"></i> Data gaji bulan <?= $bulan; ?> dan tahun <?= $tahun; ?> masih kosong. silahkan input absensi terlebih dahulu pada bulan dan tahun yang anda pilih.</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
       
