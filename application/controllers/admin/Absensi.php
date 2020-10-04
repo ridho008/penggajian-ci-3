@@ -75,6 +75,33 @@ class Absensi extends CI_Controller {
 		redirect('admin/absensi');
 	}
 
+	public function laporan_absensi()
+	{
+		$data['title'] = 'Laporan Absensi Pegawai';
+		$data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+		$this->load->view('themeplates/header', $data);
+		$this->load->view('themeplates/sidebar', $data);
+		$this->load->view('admin/absensi/laporan_absensi', $data);
+		$this->load->view('themeplates/footer');
+	}
+
+	public function cetaklaporanabsensi()
+	{
+		$data['title'] = 'Cetak Absensi Pegawai';
+		if((isset($_POST['bulan']) && $_POST['bulan'] != null) && (isset($_POST['tahun']) && $_POST['tahun'] != null)) {
+	        $bulan = $this->input->post('bulan');
+	        $tahun = $this->input->post('tahun');
+		    $bulanTahun = $bulan.$tahun;
+	    } else {
+	        $bulan = date('m');
+	        $tahun = date('Y');
+	        $bulanTahun = $bulan.$tahun;
+	    }
+	    $data['absensi'] = $this->Absensi_model->joinPegawaiJabatan($bulanTahun);
+	    $this->load->view('themeplates/header', $data);
+		$this->load->view('admin/cetak/cetak_absensi', $data);
+	}
+
 
 	
 

@@ -13,5 +13,16 @@ class Gaji_model extends CI_Model {
 		return $this->db->get()->result_array();
 	}
 
+	public function getJabatanPegawaiWhereName($bulanTahun, $pegawai)
+	{
+		$this->db->select('*');
+		$this->db->from('kehadiran');
+		$this->db->join('jabatan', 'jabatan.id_jabatan = kehadiran.id_jabatan');
+		$this->db->join('pegawai', 'pegawai.id_pegawai = kehadiran.id_pegawai');
+		$this->db->where('kehadiran.bulan', $bulanTahun);
+		$this->db->where('pegawai.id_pegawai', $pegawai);
+		return $this->db->get()->row_array();
+	}
+
 
 }

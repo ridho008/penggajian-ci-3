@@ -44,7 +44,7 @@
         <i class="fas fa-fw fa-money-check-alt"></i>
         <span>Transaksi</span>
       </a>
-      <div id="collapseUtilities" class="collapse<?= $this->uri->segment(2) == 'absensi' || $this->uri->segment(2) == 'gaji' || $this->uri->segment(2) == 'potongangaji' || $this->uri->segment(2) == 'gaji' ? ' show' : ''; ?>" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+      <div id="collapseUtilities" class="collapse<?= $this->uri->segment(2) == 'absensi' || $this->uri->segment(2) == 'gaji' || $this->uri->segment(2) == 'potongangaji' ? ' show' : ''; ?>" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
           <a class="collapse-item<?= $this->uri->segment(2) == 'absensi' ? ' active' : ''; ?>" href="<?= base_url('admin/absensi'); ?>">Data Absensi</a>
           <a class="collapse-item<?= $this->uri->segment(2) == 'potongangaji' ? ' active' : ''; ?>" href="<?= base_url('admin/potongangaji'); ?>">Setting Potongan Gaji</a>
@@ -54,16 +54,16 @@
     </li>
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item active">
+    <li class="nav-item<?= $this->uri->segment(3) == 'laporan_gaji' || $this->uri->segment(3) == 'laporan_absensi' ? ' active' : ''; ?>">
       <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
         <i class="fas fa-fw fa-copy"></i>
         <span>Laporan</span>
       </a>
-      <div id="collapsePages" class="collapse show" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+      <div id="collapsePages" class="collapse<?= $this->uri->segment(3) == 'laporan_gaji' || $this->uri->segment(3) == 'laporan_absensi' ? ' show' : ''; ?>" aria-labelledby="headingPages" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-          <a class="collapse-item" href="<?= base_url('laporan/laporan_gaji'); ?>">Laporan Gaji</a>
-          <a class="collapse-item" href="<?= base_url('laporan/laporan_absensi'); ?>">Laporan Absensi</a>
-          <a class="collapse-item" href="<?= base_url('laporan/slip_gaji'); ?>">Slip Gaji</a>
+          <a class="collapse-item<?= $this->uri->segment(3) == 'laporan_gaji' ? ' active' : ''; ?>" href="<?= base_url('admin/gaji/laporan_gaji'); ?>">Laporan Gaji</a>
+          <a class="collapse-item<?= $this->uri->segment(3) == 'laporan_absensi' ? ' active' : ''; ?>" href="<?= base_url('admin/absensi/laporan_absensi'); ?>">Laporan Absensi</a>
+          <a class="collapse-item<?= $this->uri->segment(3) == 'slip_gaji' ? ' active' : ''; ?>" href="<?= base_url('admin/gaji/slip_gaji'); ?>">Slip Gaji</a>
         </div>
       </div>
     </li>
