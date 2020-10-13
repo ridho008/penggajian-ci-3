@@ -6,7 +6,6 @@ class Dashboard extends CI_Controller {
 	{
 		parent::__construct();
 		cekSession();
-		cekMenu();
 		$this->load->model('Auth_model');
 	}
 
@@ -18,12 +17,11 @@ class Dashboard extends CI_Controller {
 			'pegawai' => $pegawai,
 			'admin' => $admin
 		];
-		$data['title'] = 'Dashboard';
-		// $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+		$data['title'] = 'Dashboard ' . ucfirst($this->session->userdata('username'));
 		$data['user'] = $this->Auth_model->getAuthUserPegawai($this->session->userdata('username'))->row_array();
 		$this->load->view('themeplates/header', $data);
 		$this->load->view('themeplates/sidebar', $data);
-		$this->load->view('admin/dashboard', $data);
+		$this->load->view('pegawai/dashboard', $data);
 		$this->load->view('themeplates/footer');
 	}
 

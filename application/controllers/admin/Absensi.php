@@ -6,6 +6,7 @@ class Absensi extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('Absensi_model');
+		$this->load->model('Auth_model');
 	}
 
 	public function index()
@@ -23,7 +24,8 @@ class Absensi extends CI_Controller {
 
 		$data['absensi'] = $this->Absensi_model->joinPegawaiJabatan($bulanTahun);
 		// var_dump($data['absensi']); die;
-		$data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+		// $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+		$data['user'] = $this->Auth_model->getAuthUserPegawai($this->session->userdata('username'))->row_array();
 		$this->load->view('themeplates/header', $data);
 		$this->load->view('themeplates/sidebar', $data);
 		$this->load->view('admin/absensi/index', $data);
@@ -44,7 +46,8 @@ class Absensi extends CI_Controller {
 		}
 
 		$data['inputAbsensi'] = $this->Absensi_model->InputjoinPegawaiJabatan($bulanTahun);
-		$data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+		// $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+		$data['user'] = $this->Auth_model->getAuthUserPegawai($this->session->userdata('username'))->row_array();
 		$this->load->view('themeplates/header', $data);
 		$this->load->view('themeplates/sidebar', $data);
 		$this->load->view('admin/absensi/input_absensi', $data);
@@ -78,7 +81,8 @@ class Absensi extends CI_Controller {
 	public function laporan_absensi()
 	{
 		$data['title'] = 'Laporan Absensi Pegawai';
-		$data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+		// $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+		$data['user'] = $this->Auth_model->getAuthUserPegawai($this->session->userdata('username'))->row_array();
 		$this->load->view('themeplates/header', $data);
 		$this->load->view('themeplates/sidebar', $data);
 		$this->load->view('admin/absensi/laporan_absensi', $data);

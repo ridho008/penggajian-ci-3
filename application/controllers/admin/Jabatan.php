@@ -6,13 +6,15 @@ class Jabatan extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('Jabatan_model');
+		$this->load->model('Auth_model');
 	}
 
 	public function index()
 	{
 		$data['title'] = 'Jabatan';
 		$data['jabatan'] = $this->Jabatan_model->getAllJabatan();
-		$data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+		// $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+		$data['user'] = $this->Auth_model->getAuthUserPegawai($this->session->userdata('username'))->row_array();
 		$this->form_validation->set_rules('jabatan', 'Nama Jabatan', 'required|trim');
 		$this->form_validation->set_rules('uang_makan', 'Uang Makan', 'required|trim');
 		$this->form_validation->set_rules('tj_transport', 'Tunjangan Transport', 'required|trim');

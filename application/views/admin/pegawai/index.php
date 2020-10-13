@@ -8,6 +8,7 @@
   <div class="row">
     <div class="col-md-6">
       <button type="button" class="btn btn-primary mb-2 tombolTambahPegawai" data-toggle="modal" data-target="#formModalPegawai"><i class="fas fa-plus-circle"></i> Tambah Data Pegawai</button>
+      <a href="<?= base_url('admin/pegawai/tambahUser'); ?>" class="btn btn-info mb-2"><i class="fas fa-user-plus"></i> Tambah Data User</a>
       <?= $this->session->flashdata('pesan'); ?>
     </div>
   </div>
@@ -114,6 +115,16 @@
               <option value="">-- Pilih Jabatan --</option>
               <?php foreach($jabatan as $j) : ?>
                 <option value="<?= $j['id_jabatan']; ?>"><?= $j['nama_jabatan']; ?></option>
+              <?php endforeach; ?>
+            </select>
+            <small class="muted text-danger"><?= form_error('nama_jabatan'); ?></small>
+          </div>
+          <div class="form-group">
+            <label for="user">User</label>
+            <select name="user" id="user" class="form-control">
+              <option value="">-- Pilih User --</option>
+              <?php foreach($users as $j) : ?>
+                <option value="<?= $j['id_user']; ?>"><?= $j['username']; ?></option>
               <?php endforeach; ?>
             </select>
             <small class="muted text-danger"><?= form_error('nama_jabatan'); ?></small>

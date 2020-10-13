@@ -34,7 +34,8 @@ class Pegawai_model extends CI_Model {
 			'id_jabatan' => html_escape($this->input->post('nama_jabatan', true)),
 			'tgl_masuk' => html_escape($this->input->post('tgl_masuk', true)),
 			'status' => html_escape($this->input->post('status', true)),
-			'photo' => $photo
+			'photo' => $photo,
+			'id_user' => html_escape($this->input->post('user', true)),
 		];
 
 		$this->db->insert('pegawai', $data);
@@ -83,6 +84,16 @@ class Pegawai_model extends CI_Model {
 
 		$this->db->where('id_pegawai', $id_pegawai);
 		$this->db->update('pegawai', $arr);
+	}
+
+	public function tambahDataUser($data)
+	{
+		$this->db->insert('user', $data);
+	}
+
+	public function getIdUser()
+	{
+		return $this->db->get('user');
 	}
 
 

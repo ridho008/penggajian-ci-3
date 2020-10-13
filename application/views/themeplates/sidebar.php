@@ -17,6 +17,20 @@
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
+    <?php if($this->session->userdata('role') == 2) : ?>
+      <li class="nav-item<?= $this->uri->segment(2) == 'dashboard' ? ' active' : ''; ?>">
+        <a class="nav-link" href="<?= base_url('pegawai/dashboard'); ?>">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Dashboard</span></a>
+      </li>
+      <li class="nav-item<?= $this->uri->segment(2) == 'gaji' ? ' active' : ''; ?>">
+        <a class="nav-link" href="<?= base_url('pegawai/gaji'); ?>">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Data Gaji</span></a>
+      </li>
+    <?php endif; ?>
+
+    <?php if($this->session->userdata('role') == 1) : ?>
     <!-- Nav Item - Dashboard -->
     <li class="nav-item<?= $this->uri->segment(2) == 'dashboard' ? ' active' : ''; ?>">
       <a class="nav-link" href="<?= base_url('admin/dashboard'); ?>">
@@ -67,7 +81,7 @@
         </div>
       </div>
     </li>
-
+    <?php endif; ?>
     <!-- Nav Item - Charts -->
     <li class="nav-item">
       <a class="nav-link" href="<?= base_url('auth/logout'); ?>">
@@ -147,8 +161,8 @@
           <!-- Nav Item - User Information -->
           <li class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $user['username']; ?></span>
-              <img class="img-profile rounded-circle" src="<?= base_url('/assets/img/user/') . $user['foto_user']; ?>">
+              <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $user['nama_pegawai']; ?></span>
+              <img class="img-profile rounded-circle" src="<?= base_url('/assets/img/user/') . $user['photo']; ?>">
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">

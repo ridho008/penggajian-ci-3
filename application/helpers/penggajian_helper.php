@@ -13,7 +13,7 @@ function cekSession()
 function cekMenu()
 {
 	$ci = get_instance();
-	if($ci->session->userdata('level') == 'user') {
-		redirect('user/dashboard');
+	if($ci->session->userdata('role') == 2) {
+		redirect('pegawai/dashboard');
 	}
 }

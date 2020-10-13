@@ -25,4 +25,29 @@ class Gaji_model extends CI_Model {
 	}
 
 
+	// **************** GAJI PEGAWAI *********************
+	public function getJoinPegawaiJabatan()
+	{
+		$this->db->select('pegawai.nik, pegawai.nama_pegawai, pegawai.jk_pegawai, jabatan.nama_jabatan, jabatan.gaji_pokok, jabatan.tj_transport, jabatan.uang_makan, kehadiran.alpa, kehadiran.bulan, kehadiran.id_kehadiran');
+		$this->db->from('pegawai');
+		$this->db->join('user', 'user.id_user = pegawai.id_user');
+		$this->db->join('kehadiran', 'kehadiran.id_pegawai = pegawai.id_pegawai');
+		$this->db->join('jabatan', 'jabatan.id_jabatan = pegawai.id_jabatan');
+		$this->db->where('user.id_user', $this->session->userdata('id_user'));
+		$this->db->order_by('kehadiran.bulan', 'desc');
+		return $this->db->get()->result_array();
+	}
+
+	public function getCetakJoinPegawaiJabatan($idKehadiran)
+	{
+		$this->db->select('pegawai.nik, pegawai.nama_pegawai, pegawai.jk_pegawai, jabatan.nama_jabatan, jabatan.gaji_pokok, jabatan.tj_transport, jabatan.uang_makan, kehadiran.alpa, kehadiran.bulan, kehadiran.id_kehadiran');
+		$this->db->from('pegawai');
+		$this->db->join('user', 'user.id_user = pegawai.id_user');
+		$this->db->join('kehadiran', 'kehadiran.id_pegawai = pegawai.id_pegawai');
+		$this->db->join('jabatan', 'jabatan.id_jabatan = pegawai.id_jabatan');
+		$this->db->where('kehadiran.id_kehadiran', $idKehadiran);
+		return $this->db->get();
+	}
+
+
 }

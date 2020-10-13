@@ -6,6 +6,7 @@ class Pegawai extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('Pegawai_model');
+		$this->load->model('Auth_model');
 	}
 
 	public function index()
@@ -13,7 +14,9 @@ class Pegawai extends CI_Controller {
 		$data['title'] = 'Pegawai';
 		$data['pegawai'] = $this->Pegawai_model->getAllPegawai();
 		$data['jabatan'] = $this->db->get('jabatan')->result_array();
-		$data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+		$data['users'] = $this->db->get('user')->result_array();
+		// $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+		$data['user'] = $this->Auth_model->getAuthUserPegawai($this->session->userdata('username'))->row_array();
 		$this->form_validation->set_rules('nik', 'NIK', 'required|trim|min_length[9]|is_unique[pegawai.nik]');
 		$this->form_validation->set_rules('nama_pegawai', 'Nama Pegawai', 'required|trim');
 		$this->form_validation->set_rules('jk', 'Jenis Kelamin', 'required|trim');
@@ -53,6 +56,32 @@ class Pegawai extends CI_Controller {
 		$this->db->delete('pegawai');
 		$this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert"><i class="fas fa-info-circle"></i> Data Pegawai <strong>Berhasil Dihapus.</strong></div>');
 		redirect('admin/pegawai');
+	}
+
+	public function tambahUser()
+	{
+		$data['title'] = 'Tambah Data User';
+		// $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+		$data['user'] = $this->Auth_model->getAuthUserPegawai($this->session->userdata('username'))->row_array();
+		$this->form_validation->set_rules('username', 'Username', 'required|trim|is_unique[user.username]');
+		$this->form_validation->set_rules('password', 'Password', 'required|trim');
+		if($this->form_validation->run() == FALSE) {
+			$this->load->view('themeplates/header', $data);
+			$this->load->view('themeplates/sidebar', $data);
+			$this->load->view('admin/pegawai/tambah_user', $data);
+			$this->load->view('themeplates/footer');
+		} else {
+			$data = [
+				'username' => html_escape($this->input->post('username', true)),
+				'password' => sha1($this->input->post('password', true)),
+				'role' => 2
+			];
+
+			$this->Pegawai_model->tambahDataUser($data);
+			$this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert"><i class="fas fa-info-circle"></i> Data User <strong>Berhasil Ditambahkan.</strong></div>');
+			redirect('admin/pegawai');
+		}
+		
 	}
 
 

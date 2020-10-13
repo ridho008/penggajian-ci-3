@@ -2,6 +2,12 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Auth extends CI_Controller {
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->model('Auth_model');
+	}
+
 	public function index()
 	{
 		$data['title'] = 'Login';
@@ -20,7 +26,7 @@ class Auth extends CI_Controller {
 		$username = $this->input->post('username', true);
 		$password = sha1($this->input->post('password', true));
 
-		$user = $this->db->get_where('user', ['username' => $username])->row_array();
+		$user = $this->Auth_model->getAuthUserPegawai($username)->row_array();
 		if($user != null) {
 			if($password == $user['password']) {
 				$data = [

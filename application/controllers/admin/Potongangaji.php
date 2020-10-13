@@ -7,12 +7,14 @@ class Potongangaji extends CI_Controller {
 		parent::__construct();
 		cekSession();
 		$this->load->model('Penggajian_model');
+		$this->load->model('Auth_model');
 	}
 
 	public function index()
 	{
 		$data['title'] = 'Setting Potongan Gaji';
-		$data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+		// $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+		$data['user'] = $this->Auth_model->getAuthUserPegawai($this->session->userdata('username'))->row_array();
 		$data['pot_gaji'] = $this->Penggajian_model->getAllPotonganGaji();
 
 		$this->form_validation->set_rules('potongan', 'Jenis Potongan', 'required|trim');
