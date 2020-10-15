@@ -40,13 +40,39 @@
                   </div>
                   <div class="card mb-3" style="max-width: 540px;">
                     <div class="row no-gutters">
-                      <div class="col-md-4">
-                        <img src="<?= base_url('/assets/img/user/') . $user['foto_user']; ?>" class="card-img">
+                      <div class="col-md-4 text-center">
+                        <img src="<?= base_url('/assets/img/user/') . $user['photo']; ?>" class="card-img mb-3">
+                        <span class="text-muted"><?= ucfirst($user['username']); ?></span>
+                        <p class="card-text">
+                          <?php if($user['status'] == 1) : ?>
+                          <span class="badge badge-primary">Pegawai Tetap</span> 
+                          <?php else: ?>
+                          <span class="badge badge-success">Pegawai Tidak Tetap</span> 
+                          <?php endif; ?>
+                        </p>
                       </div>
                       <div class="col-md-8">
                         <div class="card-body">
-                          <h5 class="card-title"><?= $user['username']; ?></h5>
-                          <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate, molestiae.</p>
+                          <table class="table">
+                            <tr>
+                              <th>Username</th>
+                              <td><h6 class="card-title"><?= $user['username']; ?></h6></td>
+                            </tr>
+                            <tr>
+                              <th>Pegawai</th>
+                              <td><h6 class="card-title"><?= $user['nama_pegawai']; ?></h6></td>
+                            </tr>
+                            <tr>
+                              <th>Tanggal Masuk</th>
+                              <?php $tglMasuk = date_create($user['tgl_masuk']); ?>
+                              <td><span class="text-muted"><?= date_format($tglMasuk, 'd F Y'); ?></span></td>
+                            </tr>
+                            <tr>
+                              <th>Status</th>
+                              <?php $tglMasuk = date_create($user['tgl_masuk']); ?>
+                              <td><?= $user['status'] == 'L' ? 'Wanita' : 'Pria'; ?></td>
+                            </tr>
+                          </table>
                           <p class="card-text"><small class="text-muted">Programmer Indonesia</small></p>
                         </div>
                       </div>

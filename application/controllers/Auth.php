@@ -55,7 +55,7 @@ class Auth extends CI_Controller {
 		$this->session->unset_userdata('id_user');
 		$this->session->unset_userdata('role');
 		$this->session->unset_userdata('username');
-		$this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert"><i class="fas fa-info-success"></i> Anda Berhasil Logout.</div>');
+		$this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert"><i class="fas fa-info-circle"></i> Anda Berhasil Logout.</div>');
 		redirect('auth');
 	}
 
@@ -71,8 +71,9 @@ class Auth extends CI_Controller {
 	public function ganti_password()
 	{
 		$data['title'] = 'Ubah Password';
-		$this->form_validation->set_rules('password_lama', 'Password Lama', 'required|trim|min_length[5]');
-		$this->form_validation->set_rules('password1', 'Password Baru', 'required|trim|min_length[5]|matches[password2]');
+		$data['user'] = $this->Auth_model->getAuthUserPegawai($this->session->userdata('username'))->row_array();
+		$this->form_validation->set_rules('password_lama', 'Password Lama', 'required|trim');
+		$this->form_validation->set_rules('password1', 'Password Baru', 'required|trim|min_length[3]|matches[password2]');
 		$this->form_validation->set_rules('password2', 'Konfirmasi Password', 'required|trim|matches[password1]');
 		if($this->form_validation->run() == FALSE) {
 			$this->load->view('auth/ganti_password', $data);
@@ -85,11 +86,11 @@ class Auth extends CI_Controller {
 				$this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert"><i class="fas fa-info-danger"></i> Password Lama Salah!.</div>');
 				redirect('auth/ganti_password');
 			} else {
-				if($passwordLama == $passwordBaru) {
+				if($passwordLama === $passwordBaru) {
 					$this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert"><i class="fas fa-info-danger"></i> Password Lama Sama Dengan Yang Baru! Coba Password Lain.</div>');
 					redirect('auth/ganti_password');
 				} else {
-					$passwordHash = sha1($passwordBaru1);
+					$passwordHash = sha1($passwordBaru);
 
 					$this->db->set('password', $passwordHash);
 					$this->db->where('username', $this->session->userdata('username'));
@@ -104,8 +105,10 @@ class Auth extends CI_Controller {
 
 	public function profile()
 	{
+		$this->load->model('Auth_model');
 		$data['title'] = 'User Profile';
-		$data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+		// $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+		$data['user'] = $this->Auth_model->getAuthUserPegawai($this->session->userdata('username'))->row_array();
 		$this->load->view('auth/profile', $data);
 	}
 
